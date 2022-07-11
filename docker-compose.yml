@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+    sftp:
+        image: atmoz/sftp
+        restart: on-failure
+        volumes:
+            # Create one directory for each user defined in user.conf
+            - ./foo:/home/foo/foo
+            - ./foo/bar:/home/bar/bar
+            - ./foo/baz:/home/baz/baz
+            # Configuration files:
+            - ./sftp-config:/etc/ssh
+            - ./sshd_config:/etc/ssh/sshd_config
+            - ./users.conf:/etc/sftp/users.conf:ro
+        ports:
+            - "2222:22"
+
